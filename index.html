@@ -155,6 +155,8 @@
   <script>
     const stage = document.getElementById('stage');
     const target = document.getElementById('target');
+    target.tabIndex=-1;
+    target.blur();
     const scoreEl = document.getElementById('score');
     const triesEl = document.getElementById('tries');
     const timeEl = document.getElementById('time');
@@ -200,7 +202,8 @@
       tries = 0;
       timeLeft = 30;
       running = true;
-      updateUI();
+      document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&document.activeElement===target)e.preventDefault();});
+    updateUI();
       messageEl.textContent = 'Vai! Acchiappalo!';
       startBtn.textContent = 'In gioco...';
       target.classList.remove('caught');
@@ -260,7 +263,7 @@
     startBtn.addEventListener('click', startGame);
     resetBtn.addEventListener('click', resetGame);
     commentsBtn.addEventListener('click', () => window.open('https://github.com/wmichaeljackson/acchiappa-il-Bottone/discussions/1', '_blank'));
-    funBtn.addEventListener('click', () => window.location.href='https://wmichaeljackson.github.io/fun.games/');
+    funBtn.addEventListener('click', () => window.open('https://wmichaeljackson.github.io/fun.games/', '_blank'));
 
     window.addEventListener('resize', () => {
       if (running) randomPos();
